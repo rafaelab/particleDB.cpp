@@ -240,6 +240,18 @@ unsigned int Particle::numberOfDecayChannels() const {
 	return decayBranchingRatios.size();
 }
 
+bool Particle::operator==(const Particle& p) {
+	if (this->getId() == p.getId())
+		return true;
+
+	return false;
+}
+
+bool Particle::operator!=(const Particle& p) {
+	return ! (*this == p);
+}
+
+
 std::ostream& operator<<(std::ostream& os, const Particle& p) {
 	os << "Particle: " <<  p.getNamePDG() << "\n";
 	os << "  . id = " << p.getId() << "\n";
@@ -247,7 +259,20 @@ std::ostream& operator<<(std::ostream& os, const Particle& p) {
 	os << "  . mass = " << p.getMass() << " (+" << p.getMassUncertaintyUpper() << ", -" << p.getMassUncertaintyLower() << ") kg \n";
 	if (p.getLifetime() < std::numeric_limits<double>::max())
 		os << "  . lifetime = " << p.getLifetime() << " (+" << p.getWidthUncertaintyUpper() << ", -" << p.getWidthUncertaintyLower() << ") s \n";
-	os << "  . representation TeX = " << "  ($" << p.getNameTeX() << ")$ "; 
+	os << "  . representation TeX = " << "  ($" << p.getNameTeX() << ")$ " << std::endl; 
+	if (p.isDecayDataAvailable()) {
+		os << "  . decay channels (branching ratio | particles): " << p.numberOfDecayChannels() <<  std::endl;
+		for (size_t i = 0; i < p.numberOfDecayChannels(); i++) {
+			double br = p.getDecayBranchingRatioForChannel(i);
+			std::vector<int> secs = p.getDecayProductsForChannel(i);
+			os << "     " << i + 1 << " | " << br << " | ";
+			for (size_t j = 0; j < secs.size(); j++) {
+				os << secs[i] << " ";
+			}
+			if (i < p.numberOfDecayChannels() - 1)
+				os << std::endl;
+		}
+	}
 	
 	return  os;
 }

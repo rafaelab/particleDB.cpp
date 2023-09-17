@@ -110,6 +110,8 @@ class Particle {
 		std::vector<int> getDecayProductsForChannel(const size_t& i) const;
 		unsigned int numberOfDecayChannels() const;
 
+		bool operator==(const Particle& p);
+		bool operator!=(const Particle& p);		
 
 };
 
