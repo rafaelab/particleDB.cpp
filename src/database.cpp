@@ -127,17 +127,13 @@ Particle Database::find(const int& id) const {
 	if (! particleExists(id))
 		throw std::runtime_error("Cannot retrieve inexistent particle with id " + std::to_string(id) + ".");
 
-	std::unordered_map<int, Particle>::const_iterator it = particleMap.find(id);
+	DatabaseIterator it = particleMap.find(id);
 	return (*it).second;
 }
 
 bool Database::particleExists(const int& id) const {
-	// std::unordered_map<int, Particle>::const_iterator it = particleMap.find(id);
-	// if (it == particleMap.end())
-	// 	return false;
-
-	// return true;
-	return tableContains(particleMap, id);
+	DatabaseIterator it = particleMap.find(id);
+	return (it == particleMap.end()) ? false : true;
 }
 
 void Database::remove(const int& id) {
@@ -152,7 +148,7 @@ std::unordered_map<int, Particle> Database::getParticleMap() const {
 }
 
 Particle Database::operator[](const int& id) {
-	std::unordered_map<int, Particle>::const_iterator it = particleMap.find(id);
+	DatabaseIterator it = particleMap.find(id);
 	return (*it).second;
 }
 

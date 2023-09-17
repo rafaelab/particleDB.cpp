@@ -35,6 +35,7 @@ namespace particleDB {
 class Database {
 	protected:
 		std::unordered_map<int, Particle> particleMap;
+		using DatabaseIterator = typename std::unordered_map<int, Particle>::const_iterator;
 
 	public:	
 		Database(bool initialiseDecays = true);
