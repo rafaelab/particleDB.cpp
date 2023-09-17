@@ -1,12 +1,13 @@
-#include "particles.h"
+#include "particleDB.h"
 
 #include <iostream>
 #include <vector>
 
-using namespace particles;
+using namespace particleDB;
 
 
 int main() {
+	
 	// read database
 	Database* db = new Database();
 
