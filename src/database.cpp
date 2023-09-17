@@ -17,6 +17,9 @@ Database::Database(std::vector<int> particles, bool initialiseDecays) {
 		initDecayTable(particles);
 }
 
+Database::~Database() {
+}
+
 void Database::initTable(std::vector<int> particles) {
 	std::string filename = getDataPath("particle2022.csv");
 	std::ifstream infile(filename.c_str());
