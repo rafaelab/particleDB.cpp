@@ -1,6 +1,7 @@
 #ifndef PARTICLEDB_DATABASE_H
 #define PARTICLEDB_DATABASE_H
 
+#include <algorithm>
 #include <array>
 #include <cstdint>
 #include <fstream>
@@ -36,12 +37,16 @@ class Database {
 
 	public:	
 		Database(bool initialiseDecays = true);
+		Database(std::vector<int> particles, bool initialiseDecays = true);
 		~Database() = default;
-		void initTable();
-		void initDecayTable();
+		void initTable(std::vector<int> particles = std::vector<int>());
+		void initDecayTable(std::vector<int> particles = std::vector<int>());
 		Particle particleFromId(const int& id) const;
 		Particle find(const int& id) const;
 		bool particleExists(const int& pId) const;
+		void remove(const int& id);
+		// void selectInPlace(const std::vector<int>& ids);
+		// Database* select(const std::vector<int>& ids) const;
 		std::unordered_map<int, Particle> getParticleMap() const;
 		Particle operator[](const int& pId);
 };

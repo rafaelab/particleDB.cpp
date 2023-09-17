@@ -11,7 +11,13 @@ Database::Database(bool initialiseDecays) {
 		initDecayTable();
 }
 
-void Database::initTable() {
+Database::Database(std::vector<int> particles, bool initialiseDecays) {
+	initTable(particles);
+	if (initialiseDecays)
+		initDecayTable(particles);
+}
+
+void Database::initTable(std::vector<int> particles) {
 	std::string filename = getDataPath("particle2022.csv");
 	std::ifstream infile(filename.c_str());
 	if (!infile.good())
@@ -44,36 +50,38 @@ void Database::initTable() {
 			entries.push_back(entry);
 		}
 
-		Particle *particle = new Particle();
-		particle->setId(std::stoi(entries[0]));
-		particle->setMass(std::stod(entries[1]) * massUnits);
-		particle->setMassUncertaintyUpper(std::stod(entries[1]) * massUnits);
-		particle->setMassUncertaintyLower(std::stod(entries[2]) * massUnits);
-		particle->setWidth(std::stod(entries[4]) * widthUnits);
-		particle->setWidthUncertaintyUpper(std::stod(entries[5]) * widthUnits);
-		particle->setWidthUncertaintyLower(std::stod(entries[6]) * widthUnits);
-		particle->setIsospin(isospinDict.at(entries[7]));
-		particle->setParityG(std::stoi(entries[8]));
-		particle->setParityP(std::stoi(entries[9]));
-		particle->setParityC(std::stoi(entries[10]));
-		particle->setAntiparticleFlag(entries[11][0]);
-		particle->setCharge(std::stod(entries[12]) * chargeUnits);
-		particle->setRank(std::stoi(entries[13]));
-		particle->setStatus(std::stoi(entries[14]));
-		particle->setNamePDG(entries[15]);
-		particle->setQuarks(entries[16]);
-		particle->setNameTeX(entries[17]);
-		particle->setLifetime(h_planck / (2. * M_PI) / particle->getWidth());
-		particle->setLifetimeUncertaintyUpper(h_planck / (2. * M_PI) / (particle->getWidth() * particle->getWidth()) * particle->getWidthUncertaintyUpper());
-		particle->setLifetimeUncertaintyLower(h_planck / (2. * M_PI) / (particle->getWidth() * particle->getWidth()) * particle->getWidthUncertaintyLower());
+		if (particles.size() == 0 || std::find(particles.begin(), particles.end(), std::stoi(entries[0])) != particles.end()) {
+			Particle *particle = new Particle();
+			particle->setId(std::stoi(entries[0]));
+			particle->setMass(std::stod(entries[1]) * massUnits);
+			particle->setMassUncertaintyUpper(std::stod(entries[1]) * massUnits);
+			particle->setMassUncertaintyLower(std::stod(entries[2]) * massUnits);
+			particle->setWidth(std::stod(entries[4]) * widthUnits);
+			particle->setWidthUncertaintyUpper(std::stod(entries[5]) * widthUnits);
+			particle->setWidthUncertaintyLower(std::stod(entries[6]) * widthUnits);
+			particle->setIsospin(isospinDict.at(entries[7]));
+			particle->setParityG(std::stoi(entries[8]));
+			particle->setParityP(std::stoi(entries[9]));
+			particle->setParityC(std::stoi(entries[10]));
+			particle->setAntiparticleFlag(entries[11][0]);
+			particle->setCharge(std::stod(entries[12]) * chargeUnits);
+			particle->setRank(std::stoi(entries[13]));
+			particle->setStatus(std::stoi(entries[14]));
+			particle->setNamePDG(entries[15]);
+			particle->setQuarks(entries[16]);
+			particle->setNameTeX(entries[17]);
+			particle->setLifetime(h_planck / (2. * M_PI) / particle->getWidth());
+			particle->setLifetimeUncertaintyUpper(h_planck / (2. * M_PI) / (particle->getWidth() * particle->getWidth()) * particle->getWidthUncertaintyUpper());
+			particle->setLifetimeUncertaintyLower(h_planck / (2. * M_PI) / (particle->getWidth() * particle->getWidth()) * particle->getWidthUncertaintyLower());
 
-		particleMap[particle->getId()] = *particle;
+			particleMap[particle->getId()] = *particle;
+		}
 
 		lineCounter++;
 	}
 }
 
-void Database::initDecayTable() {
+void Database::initDecayTable(std::vector<int> particles) {
 	std::string filename = getDataPath("particleDecays.csv");
 	std::ifstream infile(filename.c_str());
 	if (!infile.good())
@@ -92,14 +100,16 @@ void Database::initDecayTable() {
 		while (std::getline(lineStream, entry, ',')) {
 			entries.push_back(entry);
 		}
-		
-		int primary = std::stoi(entries[0]);
-		double branchingRatio = std::stod(entries[1]);
-		std::vector<int> secondaries;
-		for (size_t i = 2; i < entries.size(); i++) {
-			secondaries.push_back(std::stod(entries[i]));
+
+		if (particles.size() == 0 || std::find(particles.begin(), particles.end(), std::stoi(entries[0])) != particles.end()) {
+			int primary = std::stoi(entries[0]);
+			double branchingRatio = std::stod(entries[1]);
+			std::vector<int> secondaries;
+			for (size_t i = 2; i < entries.size(); i++) {
+				secondaries.push_back(std::stod(entries[i]));
+			}
+			particleMap[primary].addDecayChannel(branchingRatio, secondaries);
 		}
-		particleMap[primary].addDecayChannel(branchingRatio, secondaries);
 
 		lineCounter++;
 	}
@@ -124,6 +134,13 @@ bool Database::particleExists(const int& id) const {
 		return false;
 
 	return true;
+}
+
+void Database::remove(const int& id) {
+	if (! particleExists(id))
+		throw std::runtime_error("Cannot retrieve inexistent particle with id " + std::to_string(id) + ".");
+
+	particleMap.erase(id);
 }
 
 std::unordered_map<int, Particle> Database::getParticleMap() const {
