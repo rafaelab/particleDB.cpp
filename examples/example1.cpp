@@ -12,25 +12,12 @@ int main() {
 	Database* db = new Database();
 
 	// test retrieving particle properties
-	Particle p = db->particleFromId(211);
-	std::cout << p << std::endl;
+	Particle p1 = db->particleFromId(211);
+	std::cout << p1 << std::endl;
 
-	// test retrieving particle decay channels
-	bool decayData = p.isDecayDataAvailable();
-	if (! decayData)
-		std::cout << "No decay data available for this particle." << std::endl;
-	std::cout << "Number of decay channels: " << p.numberOfDecayChannels() << std::endl;
-
-	for (size_t i = 0; i < p.numberOfDecayChannels(); i++) {
-		double br = p.getDecayBranchingRatioForChannel(i);
-		std::vector<int> secs = p.getDecayProductsForChannel(i);
-		std::cout << br << " "; 
-		for (size_t j = 0; j < secs.size(); j++) {
-			std::cout << secs[j] << " ";
-		}
-		std::cout << std::endl;
-	}
-
+	// test retrieving particle properties
+	Particle p2 = db->particleFromId(15);
+	std::cout << p2 << std::endl;
 
 	return 0;
 }
