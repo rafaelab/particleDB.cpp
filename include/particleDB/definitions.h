@@ -1,9 +1,9 @@
-#ifndef PARTICLES_DEFINITIONS_H
-#define PARTICLES_DEFINITIONS_H
+#ifndef PARTICLEDB_DEFINITIONS_H
+#define PARTICLEDB_DEFINITIONS_H
 
 
 
-namespace particles {
+namespace particleDB {
 
 /**
  By default, all units are in S.I. system.

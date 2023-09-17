@@ -1,6 +1,6 @@
-#include "particles/io.h"
+#include "particleDB/io.h"
 
-namespace particles {
+namespace particleDB {
 
 
 std::string getDataPath(std::string filename) {

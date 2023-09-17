@@ -1,6 +1,6 @@
-#include "particles/utilities.h"
+#include "particleDB/utilities.h"
 
-namespace particles {
+namespace particleDB {
 
 
 std::string joinPath(const std::string& s1, const std::string& s2) {

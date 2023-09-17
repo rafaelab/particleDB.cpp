@@ -1,5 +1,5 @@
-#ifndef PARTICLES_PARTICLE_H
-#define PARTICLES_PARTICLE_H
+#ifndef PARTICLEDB_PARTICLE_H
+#define PARTICLEDB_PARTICLE_H
 
 #include <array>
 #include <cstdint>
@@ -13,10 +13,10 @@
 #include <unordered_map>
 #include <vector>
 
-#include "particles/definitions.h"
+#include "particleDB/definitions.h"
 
 
-namespace particles {
+namespace particleDB {
 
 
 /**

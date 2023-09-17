@@ -1,7 +1,7 @@
-#include "particles/database.h"
+#include "particleDB/database.h"
 
 
-namespace particles {
+namespace particleDB {
 
 
 /****************************************************************************************/

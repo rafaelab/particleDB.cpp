@@ -1,11 +1,11 @@
-#ifndef PARTICLES_UTILITIES_H
-#define PARTICLES_UTILITIES_H
+#ifndef PARTICLEDB_UTILITIES_H
+#define PARTICLEDB_UTILITIES_H
 
 #include <string>
 #include <unistd.h>
 
 
-namespace particles {
+namespace particleDB {
 
 std::string joinPath(const std::string& s1, const std::string& s2);
 

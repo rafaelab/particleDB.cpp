@@ -1,13 +1,13 @@
-#ifndef PARTICLES_IO_H
-#define PARTICLES_IO_H
+#ifndef PARTICLEDB_IO_H
+#define PARTICLEDB_IO_H
 
 #include <filesystem>
 #include <iostream>
 
 
-#include "particles/utilities.h"
+#include "particleDB/utilities.h"
 
-namespace particles {
+namespace particleDB {
 
 /**
  Explicitly copied (and adjusted) from CRPropa's Common.h/.cc files.

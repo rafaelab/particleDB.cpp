@@ -1,7 +1,7 @@
-#include "particles/particle.h"
+#include "particleDB/particle.h"
 
 
-namespace particles {
+namespace particleDB {
 
 
 Particle::Particle() {	
