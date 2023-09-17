@@ -17,15 +17,7 @@ std::string joinPath(const std::string& s1, const std::string& s2);
  Get the current path of where the code is being executed.
  From: https://stackoverflow.com/questions/5525668/how-to-implement-readlink-to-find-the-path
 */
-std::string executablePath(const std::string& s);
-
-/**
- Decide whether a table represented by an unordered map contains a given key. 
-*/
-template<typename T, typename U>
-inline bool tableContains(const std::unordered_map<T, U>& table, T value) {
-	return (table.find(value) == table.end()) ? true : false;
-}
+std::string executablePath();
 
 
 /**

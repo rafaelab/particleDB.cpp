@@ -12,7 +12,6 @@ std::string joinPath(const std::string& s1, const std::string& s2) {
 }
 
 
-
 std::string executablePath() {
 	char buffer[1024];
 	size_t size = readlink("/proc/self/exe", buffer, sizeof(buffer) - 1);
