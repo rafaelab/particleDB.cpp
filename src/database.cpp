@@ -17,8 +17,8 @@ Database::Database(std::vector<int> particles, bool initialiseDecays) {
 		initDecayTable(particles);
 }
 
-// Database::~Database() {
-// }
+Database::~Database() {
+}
 
 void Database::initTable(std::vector<int> particles) {
 	std::string filename = getDataPath("particle2022.csv");
@@ -132,11 +132,12 @@ Particle Database::find(const int& id) const {
 }
 
 bool Database::particleExists(const int& id) const {
-	std::unordered_map<int, Particle>::const_iterator it = particleMap.find(id);
-	if (it == particleMap.end())
-		return false;
+	// std::unordered_map<int, Particle>::const_iterator it = particleMap.find(id);
+	// if (it == particleMap.end())
+	// 	return false;
 
-	return true;
+	// return true;
+	return tableContains(particleMap, id);
 }
 
 void Database::remove(const int& id) {
