@@ -38,7 +38,7 @@ class Database {
 	public:	
 		Database(bool initialiseDecays = true);
 		Database(std::vector<int> particles, bool initialiseDecays = true);
-		~Database();
+		// ~Database();
 		void initTable(std::vector<int> particles = std::vector<int>());
 		void initDecayTable(std::vector<int> particles = std::vector<int>());
 		Particle particleFromId(const int& id) const;
