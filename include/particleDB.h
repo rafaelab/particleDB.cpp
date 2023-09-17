@@ -1,12 +1,12 @@
-#ifndef PARTICLES_H
-#define PARTICLES_H
+#ifndef PARTICLEDB_H
+#define PARTICLEDB_H
 
-#include "particles/definitions.h"
-#include "particles/utilities.h"
-#include "particles/io.h"
-#include "particles/particle.h"
-#include "particles/database.h"
 
+#include "particleDB/definitions.h"
+#include "particleDB/utilities.h"
+#include "particleDB/io.h"
+#include "particleDB/particle.h"
+#include "particleDB/database.h"
 
 
 #endif
