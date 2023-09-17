@@ -45,8 +45,6 @@ class Database {
 		Particle find(const int& id) const;
 		bool particleExists(const int& pId) const;
 		void remove(const int& id);
-		// void selectInPlace(const std::vector<int>& ids);
-		// Database* select(const std::vector<int>& ids) const;
 		std::unordered_map<int, Particle> getParticleMap() const;
 		Particle operator[](const int& pId);
 };
