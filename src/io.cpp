@@ -9,7 +9,7 @@ std::string getDataPath(std::string filename) {
 	if (dataPath.size())
 		return joinPath(dataPath, filename);
 
-	const char* envPath = getenv("PARTICLES_DATA_PATH");
+	const char* envPath = getenv("PARTICLEDB_DATA_PATH");
 	if (envPath) {
 		if (std::filesystem::is_directory(envPath)) {
 			dataPath = envPath;
@@ -17,9 +17,9 @@ std::string getDataPath(std::string filename) {
 		}
 	}
 
-	#ifdef PARTICLES_INSTALL_PREFIX
+	#ifdef PARTICLEDB_INSTALL_PREFIX
 	{
-		std::string _path = PARTICLES_INSTALL_PREFIX "/share/data/particles";
+		std::string _path = PARTICLEDB_INSTALL_PREFIX "/share/data/particleDB";
 		if (std::filesystem::is_directory(_path)) {
 			dataPath = _path;
 			return joinPath(dataPath, filename);
@@ -35,8 +35,8 @@ std::string getDataPath(std::string filename) {
 
 std::string getInstallPrefix() {
 	std::string path = "";
-	#ifdef PARTICLES_INSTALL_PREFIX
-		path += PARTICLES_INSTALL_PREFIX;
+	#ifdef PARTICLEDB_INSTALL_PREFIX
+		path += PARTICLEDB_INSTALL_PREFIX;
 	#endif
 
   return path;
