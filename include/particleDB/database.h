@@ -43,12 +43,12 @@ class Database {
 		~Database();
 		void initTable(std::vector<int> particles = std::vector<int>());
 		void initDecayTable(std::vector<int> particles = std::vector<int>());
-		Particle* getParticleFromId(const int& id) const;
-		Particle* find(const int& id) const;
+		const Particle& find(const int& id) const;
+		const Particle& getParticleFromId(const int& id) const;
 		bool particleExists(const int& pId) const;
 		void remove(const int& id);
 		std::unordered_map<int, Particle> getParticleMap() const;
-		Particle operator[](const int& pId);
+		const Particle& operator[](const int& pId);
 };
 
 
