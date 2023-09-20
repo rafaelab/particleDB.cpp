@@ -14,11 +14,15 @@ add_library(particleDB SHARED
 target_include_directories(particleDB PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set_target_properties(particleDB PROPERTIES COMPILE_FLAGS "-fPIC")
 
-add_executable(example1 examples/example1.cpp)
-target_link_libraries(example1 particleDB)
+option(BUILD_EXAMPLES "Build examples" OFF)
+if(BUILD_EXAMPLES)
+	add_executable(example1 examples/example1.cpp)
+	target_link_libraries(example1 particleDB)
 
-add_executable(example2 examples/example2.cpp)
-target_link_libraries(example2 particleDB)
+	add_executable(example2 examples/example2.cpp)
+	target_link_libraries(example2 particleDB)
+endif(BUILD_EXAMPLES)
+
 
 # install
 add_definitions(-DPARTICLES_INSTALL_PREFIX="${CMAKE_INSTALL_PREFIX}")
