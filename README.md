@@ -4,21 +4,20 @@
 This small package deals with particle properties.
 It includes the PDG id, masses (with uncertainties), lifetimes, decay channels, etc.
 
-Information about individual particles are taken from SciKit-HEP, which provides very similar functionality.
-	https://github.com/scikit-hep/particle/blob/master/src/particle/data/particle2022.csv
+Information about individual particles are taken from [SciKit-HEP](https://github.com/scikit-hep/particle/blob/master/src/particle/data/particle2022.csv), which provides very similar functionality.
+	
 The underlying data is taken from the Particle Data Group (2022 edition).
 
-The database of decays is taken from PYTHIA 8.3:
-	https://github.com/mortenpi/pythia8/blob/master/xmldoc/
+The database of decays is taken from [PYTHIA 8.3](https://github.com/mortenpi/pythia8/blob/master/xmldoc/).
 It is created by an external script written in Julia and written as csv file.
 
 
-### Requirements
+## Requirements
 
 The main requirement for using *particleDB* is C++17.
 
 
-### Installation
+## Installation
 
 To install *particleDGB*, follow the instructions below.
 
@@ -54,7 +53,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/build/lib
 If the code was properly compiled, you are ready to go!
 
 
-### Example
+## Example
 
 The code can be used in a straightforward way by defining a `Database`, which loads particle properties and optionally their decay channels.
 ```
