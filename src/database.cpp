@@ -119,16 +119,16 @@ void Database::initDecayTable(std::vector<int> particles) {
 
 }
 
-Particle Database::particleFromId(const int& id) const {
+Particle* Database::getParticleFromId(const int& id) const {
 	return find(id);
 }
 
-Particle Database::find(const int& id) const {
+Particle* Database::find(const int& id) const {
 	if (! particleExists(id))
 		throw std::runtime_error("Cannot retrieve inexistent particle with id " + std::to_string(id) + ".");
 
 	DatabaseIterator it = particleMap.find(id);
-	return (*it).second;
+	return new Particle((*it).second);
 }
 
 bool Database::particleExists(const int& id) const {
