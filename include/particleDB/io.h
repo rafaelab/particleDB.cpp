@@ -3,18 +3,15 @@
 
 #include <filesystem>
 #include <iostream>
+#include <string>
 
 
 #include "particleDB/utilities.h"
 
 namespace particleDB {
 
-/**
- Explicitly copied (and adjusted) from CRPropa's Common.h/.cc files.
-*/
-std::string getDataPath(std::string filename);
-std::string getInstallPrefix();
 
+std::string getDataPath(std::string filename);
 
 
 } // namespace
