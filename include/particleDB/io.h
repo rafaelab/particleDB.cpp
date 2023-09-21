@@ -12,6 +12,8 @@ namespace particleDB {
 
 
 std::string getDataPath(std::string filename);
+// std::string getInstallPrefix();
+
 
 
 } // namespace
