@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.9)
 project(particleDB)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
 set(CMAKE_MACOSX_RPATH 1)
 
 add_library(particleDB SHARED
@@ -25,7 +25,9 @@ endif(BUILD_EXAMPLES)
 
 
 # install
-add_definitions(-DPARTICLES_INSTALL_PREFIX="${CMAKE_INSTALL_PREFIX}")
+add_definitions(-DPARTICLEDB_INSTALL_PREFIX="${CMAKE_INSTALL_PREFIX}")
+add_definitions(-DPARTICLEDB_DATA_PATH="${PROJECT_SOURCE_DIR}/data/")
 install(TARGETS particleDB DESTINATION lib)
 install(DIRECTORY include/ DESTINATION include FILES_MATCHING PATTERN "*.h")
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/data/ DESTINATION data PATTERN ".git" EXCLUDE)
+
