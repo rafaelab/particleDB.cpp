@@ -8,16 +8,6 @@
 
 namespace particleDB {
 
-/**
- Returns the combined path taking care of all the slashes, etc.
-*/
-std::string joinPath(const std::string& s1, const std::string& s2);
-
-/**
- Get the current path of where the code is being executed.
- From: https://stackoverflow.com/questions/5525668/how-to-implement-readlink-to-find-the-path
-*/
-std::string executablePath();
 
 
 /**

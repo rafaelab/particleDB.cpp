@@ -11,8 +11,11 @@
 namespace particleDB {
 
 
-std::string getDataPath(std::string filename);
-std::string getInstallPrefix();
+/**
+ * Functions to read data files.
+*/
+std::filesystem::path getDataPath(std::string filename);
+std::filesystem::path getInstallPrefix();
 
 
 

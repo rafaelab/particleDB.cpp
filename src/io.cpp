@@ -1,52 +1,43 @@
 #include "particleDB/io.h"
 
+
 namespace particleDB {
 
-// std::string getDataPath(std::string filename) {
-// 	std::filesystem::path path = std::filesystem::current_path();
-// 	path += std::filesystem::path("/data/");
-// 	path += std::filesystem::path(filename);
-// 	return path;
-// }
 
+std::filesystem::path getDataPath(std::string filename) {
+	std::filesystem::path fileName(filename);
+	static std::filesystem::path dataPath;
 
-std::string getDataPath(std::string filename) {
-
-	static std::string dataPath;
-	if (dataPath.size())
-		return joinPath(dataPath, filename);
-
-	const char* envPath = getenv("PARTICLEDB_DATA_PATH");
+	const char* envPath = std::getenv("PARTICLEDB_DATA_PATH");
 	if (envPath) {
 		if (std::filesystem::is_directory(envPath)) {
-			dataPath = envPath;
-			return joinPath(dataPath, filename);
+			dataPath = envPath / fileName;
+			return dataPath;
 		}
 	}
 
 	#ifdef PARTICLEDB_INSTALL_PREFIX
 	{
-		std::string _path = PARTICLEDB_INSTALL_PREFIX "/share/data/particleDB";
-		if (std::filesystem::is_directory(_path)) {
-			dataPath = _path;
-			return joinPath(dataPath, filename);
-		}
+		std::filesystem::path sharePath(PARTICLEDB_INSTALL_PREFIX  "/share/particleDB");
+		dataPath = sharePath / fileName;
+		return dataPath;
 	}
 	#endif
-	
-	dataPath = "data";
 
-	return joinPath(dataPath, filename);
+	std::filesystem::path dataDir("data/");
+	dataPath = dataDir / fileName;
+
+	return dataPath;
 }
 
 
-std::string getInstallPrefix() {
-	std::string path = "";
+std::filesystem::path getInstallPrefix() {
+	std::filesystem::path path("");
 	#ifdef PARTICLEDB_INSTALL_PREFIX
 		path += PARTICLEDB_INSTALL_PREFIX;
 	#endif
 
-  return path;
+	return path;
 };
 
 
